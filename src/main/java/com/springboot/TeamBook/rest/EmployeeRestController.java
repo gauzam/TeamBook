@@ -39,6 +39,7 @@ public class EmployeeRestController {
         return theEmployee;
     }
 
+    // add mapping for POST /employees
     @PostMapping("/employees")
     public Employee addEmployee(@RequestBody Employee theEmployee){
 
@@ -51,8 +52,17 @@ public class EmployeeRestController {
 
         return dbEmployee;
 
-
     }
+
+    //add mapping for PUT /employees - update an existing employee
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee theEmployee){
+
+        Employee dbEmployee = employeeService.save(theEmployee);
+
+        return dbEmployee;
+    }
+
 
 
 }
