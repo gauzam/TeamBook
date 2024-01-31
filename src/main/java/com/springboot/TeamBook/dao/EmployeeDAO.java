@@ -1,17 +1,17 @@
-package com.springboot.TeamBook.dao;
-
-import com.springboot.TeamBook.entity.Employee;
-
-import java.util.List;
-
-public interface EmployeeDAO {
-
-    List<Employee> findAll();
-
-    Employee findById(int theId);
-
-    Employee save(Employee theEmployee);
-
-    void deleteById(int theId);
-
-}
+//package com.springboot.TeamBook.dao;
+//
+//import com.springboot.TeamBook.entity.Employee;
+//
+//import java.util.List;
+//
+//public interface EmployeeDAO {
+//
+//    List<Employee> findAll();
+//
+//    Employee findById(int theId);
+//
+//    Employee save(Employee theEmployee);
+//
+//    void deleteById(int theId);
+//
+//}
