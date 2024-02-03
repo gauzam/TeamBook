@@ -1,7 +1,9 @@
 package com.springboot.TeamBook.service;
 
 import com.springboot.TeamBook.dao.EmployeeRepository;
+import com.springboot.TeamBook.dto.EmployeeDTO;
 import com.springboot.TeamBook.entity.Employee;
+import com.springboot.TeamBook.mapper.EmployeeMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,8 +45,15 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee save(Employee theEmployee) {
-        return employeeRepository.save(theEmployee);
+    public EmployeeDTO save(EmployeeDTO employeeDTO) {
+
+        Employee theEmployee = EmployeeMapper.mapToEmployee(employeeDTO);
+
+        Employee savedEmployee = employeeRepository.save(theEmployee);
+
+        EmployeeDTO savedEmployeeDTO = EmployeeMapper.mapToEmployeeDTO(savedEmployee);
+
+        return savedEmployeeDTO;
     }
 
     @Override

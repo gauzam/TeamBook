@@ -1,5 +1,6 @@
 package com.springboot.TeamBook.service;
 
+import com.springboot.TeamBook.dto.EmployeeDTO;
 import com.springboot.TeamBook.entity.Employee;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface EmployeeService {
 
     Employee findById(int theId);
 
-    Employee save(Employee theEmployee);
+    EmployeeDTO save(EmployeeDTO employeeDTO);
 
     void deleteById(int theId);
 
