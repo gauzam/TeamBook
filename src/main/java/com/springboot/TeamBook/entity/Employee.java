@@ -1,9 +1,11 @@
 package com.springboot.TeamBook.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "employee")
+@AllArgsConstructor
 public class Employee {
 
     //define fields
