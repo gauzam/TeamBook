@@ -29,17 +29,15 @@ public class EmployeeRestController {
         return employeeService.findAll();
     }
 
-    // add mapping for GET /employees/{employeeId}
+    // add mapping for GET /{employeeId}
     @GetMapping("/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId){
+    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable int employeeId){
 
-        Employee theEmployee = employeeService.findById(employeeId);
+        EmployeeDTO employeeDTO = employeeService.findById(employeeId);
 
-        if(theEmployee == null){
-            throw new RuntimeException("Employee id not found: " + employeeId);
-        }
-
-        return theEmployee;
+        //creating and returning response entity with employeeDTO as response body
+        //and HTTP status code of 200 OK
+        return ResponseEntity.ok(employeeDTO);
     }
 
     // add mapping for POST /employees
@@ -53,6 +51,8 @@ public class EmployeeRestController {
 
         EmployeeDTO savedEmployeeDTO = employeeService.save(employeeDTO);
 
+        //creating and returning response entity with savedEmployeeDTO as response body
+        //and 201 as HTTP status code
         return new ResponseEntity<>(savedEmployeeDTO, HttpStatus.CREATED);
 
     }

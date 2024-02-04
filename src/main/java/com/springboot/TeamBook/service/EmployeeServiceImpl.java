@@ -3,6 +3,7 @@ package com.springboot.TeamBook.service;
 import com.springboot.TeamBook.dao.EmployeeRepository;
 import com.springboot.TeamBook.dto.EmployeeDTO;
 import com.springboot.TeamBook.entity.Employee;
+import com.springboot.TeamBook.exceptions.ResourceNotFoundException;
 import com.springboot.TeamBook.mapper.EmployeeMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +29,21 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee findById(int theId) {
+    public EmployeeDTO findById(int theId) {
         Optional<Employee> result = employeeRepository.findById(theId);
 
         Employee theEmployee = null;
 
-        if(result.isPresent()){
-            theEmployee = result.get();
+        if(result.isEmpty()){
+            //employee not found
+            throw new ResourceNotFoundException("Did not find employee id - " + theId);
+
         }
         else{
-            //employee not found
-            throw new RuntimeException("Did not find employee id - " + theId);
+            theEmployee = result.get();
         }
 
-        return theEmployee;
+        return EmployeeMapper.mapToEmployeeDTO(theEmployee);
     }
 
     @Override
