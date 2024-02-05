@@ -96,6 +96,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public void deleteById(int theId) {
+
+        //new way introduced in java 8 to check if database returns null
+        Optional<Employee> result = employeeRepository.findById(theId);
+
+        if(result.isEmpty()){
+            //employee not found
+            throw new ResourceNotFoundException("Did not find employee id - " + theId);
+        }
+
+        //deletes the employee with given id from the database
         employeeRepository.deleteById(theId);
+
     }
 }

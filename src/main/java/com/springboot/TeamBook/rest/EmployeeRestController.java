@@ -72,19 +72,19 @@ public class EmployeeRestController {
 
     // add mapping for DELETE /employees/{employeeId} - delete an employee
     @DeleteMapping("/{employeeId}")
-    public String deleteEmployee(@PathVariable int employeeId){
+    public ResponseEntity<String> deleteEmployee(@PathVariable int employeeId){
 
-        Employee tempEmployee = employeeService.findById(employeeId);
-
-        //throw exception if null
-
-        if(tempEmployee == null){
-            throw new RuntimeException("Employee id not found: " + employeeId);
-        }
+//        Employee tempEmployee = employeeService.findById(employeeId);
+//
+//        //throw exception if null
+//
+//        if(tempEmployee == null){
+//            throw new RuntimeException("Employee id not found: " + employeeId);
+//        }
 
         employeeService.deleteById(employeeId);
 
-        return "Deleted employee with id: " + employeeId;
+        return ResponseEntity.ok("Successfully deleted employee with id: " + employeeId);
     }
 
 
