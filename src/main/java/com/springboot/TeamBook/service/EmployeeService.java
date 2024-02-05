@@ -11,7 +11,9 @@ public interface EmployeeService {
 
     EmployeeDTO findById(int theId);
 
-    EmployeeDTO save(EmployeeDTO employeeDTO);
+    EmployeeDTO createEmployee(EmployeeDTO employeeDTO);
+
+    EmployeeDTO updateEmployee(int theId, EmployeeDTO updatedEmployeeDTO);
 
     void deleteById(int theId);
 

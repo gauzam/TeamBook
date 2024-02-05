@@ -52,7 +52,7 @@ public class EmployeeRestController {
 
         //theEmployee.setId(0);
 
-        EmployeeDTO savedEmployeeDTO = employeeService.save(employeeDTO);
+        EmployeeDTO savedEmployeeDTO = employeeService.createEmployee(employeeDTO);
 
         //creating and returning response entity with savedEmployeeDTO as response body
         //and 201 as HTTP status code
@@ -61,12 +61,13 @@ public class EmployeeRestController {
     }
 
     //add mapping for PUT /employees - update an existing employee
-    @PutMapping
-    public Employee updateEmployee(@RequestBody Employee theEmployee){
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable int employeeId,
+                                                      @RequestBody EmployeeDTO employeeDTO){
 
-        Employee dbEmployee = employeeService.save(theEmployee);
+        EmployeeDTO updatedEmployeeDTO = employeeService.updateEmployee(employeeId, employeeDTO);
 
-        return dbEmployee;
+        return ResponseEntity.ok(updatedEmployeeDTO);
     }
 
     // add mapping for DELETE /employees/{employeeId} - delete an employee

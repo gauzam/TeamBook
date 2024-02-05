@@ -54,15 +54,44 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public EmployeeDTO save(EmployeeDTO employeeDTO) {
+    public EmployeeDTO createEmployee(EmployeeDTO employeeDTO) {
 
+        //converting employeeDTO object into employee jpa entity object
         Employee theEmployee = EmployeeMapper.mapToEmployee(employeeDTO);
 
+        //saving the employee object in the database
         Employee savedEmployee = employeeRepository.save(theEmployee);
 
-        EmployeeDTO savedEmployeeDTO = EmployeeMapper.mapToEmployeeDTO(savedEmployee);
+        //returning saved employee's DTO object
+        return EmployeeMapper.mapToEmployeeDTO(savedEmployee);
+    }
 
-        return savedEmployeeDTO;
+    @Override
+    public EmployeeDTO updateEmployee(int theId, EmployeeDTO updatedEmployeeDTO) {
+
+        //new way introduced in java 8 to check if database returns null
+        Optional<Employee> result = employeeRepository.findById(theId);
+
+        Employee theEmployee = null;
+
+        if(result.isEmpty()){
+            //employee not found
+            throw new ResourceNotFoundException("Did not find employee id - " + theId);
+        }
+        else{
+            theEmployee = result.get();
+        }
+
+        //updating this employee with its new details
+        theEmployee.setFirstName(updatedEmployeeDTO.getFirstName());
+        theEmployee.setLastName(updatedEmployeeDTO.getLastName());
+        theEmployee.setEmail(updatedEmployeeDTO.getEmail());
+
+        //saving new information in the database
+        Employee updatedEmployeeObj = employeeRepository.save(theEmployee);
+
+        //returning EmployeeDTO object
+        return EmployeeMapper.mapToEmployeeDTO(updatedEmployeeObj);
     }
 
     @Override
