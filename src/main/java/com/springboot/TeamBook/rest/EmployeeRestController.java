@@ -25,8 +25,11 @@ public class EmployeeRestController {
 
     //expose '/employees' endpoint and return a list of employees
     @GetMapping
-    public List<Employee> findAll(){
-        return employeeService.findAll();
+    public ResponseEntity<List<EmployeeDTO>> findAll(){
+
+        List<EmployeeDTO> employeeDTOs = employeeService.findAll();
+
+        return ResponseEntity.ok(employeeDTOs);
     }
 
     // add mapping for GET /{employeeId}

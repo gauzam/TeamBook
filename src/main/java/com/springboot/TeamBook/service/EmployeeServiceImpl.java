@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -24,8 +25,14 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> findAll() {
+
+        List<Employee> employees = employeeRepository.findAll();
+
+        //we have a list of employees jpa entities
+        //we need it to convert it into a list of employeeDTO objects
+        return employees.stream().map((employee) -> EmployeeMapper.mapToEmployeeDTO(employee))
+                .collect(Collectors.toList());
     }
 
     @Override
