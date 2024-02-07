@@ -5,7 +5,6 @@ import com.springboot.TeamBook.dto.EmployeeDTO;
 import com.springboot.TeamBook.entity.Employee;
 import com.springboot.TeamBook.exceptions.ResourceNotFoundException;
 import com.springboot.TeamBook.mapper.EmployeeMapper;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
