@@ -1,7 +1,6 @@
 package com.springboot.TeamBook.rest;
 
 import com.springboot.TeamBook.dto.EmployeeDTO;
-import com.springboot.TeamBook.entity.Employee;
 import com.springboot.TeamBook.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,17 +21,18 @@ public class EmployeeRestController {
         this.employeeService = employeeService;
     }
 
-
-    //expose '/employees' endpoint and return a list of employees
+    //REST endpoint that returns a list of employees
     @GetMapping
     public ResponseEntity<List<EmployeeDTO>> findAll(){
 
         List<EmployeeDTO> employeeDTOs = employeeService.findAll();
 
+        //creating and returning response entity with list of all employees in employeeDTOs as response body
+        //and HTTP status code of 200 OK
         return ResponseEntity.ok(employeeDTOs);
     }
 
-    // add mapping for GET /{employeeId}
+    //REST endpoint that returns a single employee with the given id
     @GetMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable int employeeId){
 
@@ -43,14 +43,9 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeeDTO);
     }
 
-    // add mapping for POST /employees
+    //REST endpoint that creates an employee in the database from the info passed in the request body
     @PostMapping
     public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employeeDTO){
-
-        //just in case they pass an id in json... set it to 0
-        //this is to force the insert of the new item... instead of update
-
-        //theEmployee.setId(0);
 
         EmployeeDTO savedEmployeeDTO = employeeService.createEmployee(employeeDTO);
 
@@ -60,30 +55,26 @@ public class EmployeeRestController {
 
     }
 
-    //add mapping for PUT /employees - update an existing employee
+    //REST endpoint that updates an existing employee in the database
     @PutMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable int employeeId,
                                                       @RequestBody EmployeeDTO employeeDTO){
 
         EmployeeDTO updatedEmployeeDTO = employeeService.updateEmployee(employeeId, employeeDTO);
 
+        //creating and returning response entity with updatedEmployeeDTO as response body
+        //and HTTP status code of 200 OK
         return ResponseEntity.ok(updatedEmployeeDTO);
     }
 
-    // add mapping for DELETE /employees/{employeeId} - delete an employee
+    //REST endpoint that deletes an existing employee from the database
     @DeleteMapping("/{employeeId}")
     public ResponseEntity<String> deleteEmployee(@PathVariable int employeeId){
 
-//        Employee tempEmployee = employeeService.findById(employeeId);
-//
-//        //throw exception if null
-//
-//        if(tempEmployee == null){
-//            throw new RuntimeException("Employee id not found: " + employeeId);
-//        }
-
         employeeService.deleteById(employeeId);
 
+        //creating and returning response entity with a message string as response body
+        //and HTTP status code of 200 OK
         return ResponseEntity.ok("Successfully deleted employee with id: " + employeeId);
     }
 
