@@ -58,4 +58,7 @@ Requirements listed below are for the front-end and back-end.
 
 #### React & Spring Boot Summarisation Diagram
 
+![image](https://github.com/gauzam/TeamBook/assets/144623295/ba6c915f-7359-4d34-b1a1-82711a56c79e)
+
+
 
